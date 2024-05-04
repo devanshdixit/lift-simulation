@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="number"], button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#simulationArea {
+    position: relative;
+    margin-top: 20px;
+}
+.floor {
+    height: 110px;
+    /* margin: 10px; */
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.sect{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.basefloor{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.basefloorline {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+}
+
+.floortext{
+    white-space: nowrap;
+}
+
+.buttongroup{
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    margin: 5px;
+}
+.liftarea{
+    height: 95px;
+    width: 100%;
+}
+
+
+.lift {
+    position: absolute;
+    
+    bottom: 20px;
+    width: 80px; /* Slightly less than the shaft to fit inside */
+    height: 95px; /* Arbitrary height for the lift */
+    background-color: red;
+    border: 1px solid black;
+    transition: bottom 2s ease-in-out; /* Smooth transition for movement */
+}
