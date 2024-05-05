@@ -71,11 +71,38 @@ button {
 
 .lift {
     position: absolute;
-    
-    bottom: 20px;
-    width: 80px; /* Slightly less than the shaft to fit inside */
-    height: 95px; /* Arbitrary height for the lift */
+    width: 80px;
+    height: 95px;
     background-color: red;
     border: 1px solid black;
-    transition: bottom 2s ease-in-out; /* Smooth transition for movement */
+    transition: bottom 2s linear; /* Smooth linear transition for movement */
+    overflow: hidden; /* Necessary for door animations */
+}
+
+.lift::before, .lift::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px; /* Half of the lift width for each door */
+    background-color: black;
+    transition: transform 2.5s; /* Animation for doors */
+}
+
+.lift::before {
+    left: 0;
+    transform: translateX(0%);
+}
+
+.lift::after {
+    right: 0;
+    transform: translateX(0%);
+}
+
+.lift.doorsOpen::before {
+    transform: translateX(-100%);
+}
+
+.lift.doorsOpen::after {
+    transform: translateX(100%);
 }

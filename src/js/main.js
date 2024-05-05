@@ -24,14 +24,14 @@ function initializeSimulation(floors, liftsCount) {
         lift.style.right = `${100 + ((j + 1) * 90)}px`;
         liftShaft.appendChild(lift);
     }
-
     liftDataStore.lifts = Array.from({ length: liftsCount }, (_, index) => ({
         id: `lift${index}`,
         currentFloor: 1,
         direction: 'idle',
-        moving: false
+        moving: false,
+        doorOpen: false,
+        queue: []
     }));
-
 
     for (let i = floors - 1; i >= 0; i--) {
         let floorDiv = document.createElement('div');
@@ -71,10 +71,13 @@ function initializeSimulation(floors, liftsCount) {
 function callLift(floor, direction) {
     let nearestLift = selectNearestLift(floor, direction);
     if (nearestLift) {
-        moveLift(nearestLift, floor);
+        if (nearestLift.doorOpen || nearestLift.moving) {
+            nearestLift.queue.push({ floor, direction });
+        } else {
+            moveLift(nearestLift, floor);
+        }
     }
 }
-
 function selectNearestLift(requestedFloor, direction) {
     let nearestLift = null;
     let minimumDistance = Number.MAX_VALUE;
@@ -86,14 +89,40 @@ function selectNearestLift(requestedFloor, direction) {
         }
     });
     return nearestLift;
-}
-
-function moveLift(lift, requestedFloor) {
+}function moveLift(lift, requestedFloor) {
     const liftElement = document.getElementById(lift.id);
     if (!liftElement) return;
 
+    lift.moving = true;
     const floorHeight = 112;
+    const travelTimePerFloor = 2000; 
+    const floorsToMove = Math.abs(requestedFloor - lift.currentFloor);
+    const totalTravelTime = floorsToMove * travelTimePerFloor;
+
+    liftElement.style.transition = `bottom ${totalTravelTime}ms linear`;
     liftElement.style.bottom = `${(requestedFloor - 1) * floorHeight}px`;
-    lift.currentFloor = requestedFloor;
-    lift.direction = 'idle';
+
+    setTimeout(() => {
+        lift.currentFloor = requestedFloor;
+        lift.moving = false;
+        openDoors(lift);
+    }, totalTravelTime);
+}
+
+function openDoors(lift) {
+    const liftElement = document.getElementById(lift.id);
+    lift.doorOpen = true;
+    liftElement.classList.add('doorsOpen');
+    setTimeout(() => {
+        liftElement.classList.remove('doorsOpen');
+        lift.doorOpen = false;
+        processQueue(lift);
+    }, 5000);
+}
+
+function processQueue(lift) {
+    if (lift.queue.length > 0) {
+        const request = lift.queue.shift();
+        moveLift(lift, request.floor);
+    }
 }
