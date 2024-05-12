@@ -26,36 +26,36 @@ button {
     position: relative;
     margin-top: 20px;
 }
+
 .floor {
     height: 110px;
-    /* margin: 10px; */
-    /* padding: 10px; */
     display: flex;
     flex-direction: column;
 }
 
-.sect{
+.sect {
     display: flex;
     gap: 10px;
     width: 100%;
 }
 
-.basefloor{
+.basefloor {
     display: flex;
     align-items: center;
     gap: 6px;
 }
+
 .basefloorline {
     width: 100%;
     height: 1px;
     background-color: #000;
 }
 
-.floortext{
+.floortext {
     white-space: nowrap;
 }
 
-.buttongroup{
+.buttongroup {
     display: flex;
     flex-direction: column;
 }
@@ -63,19 +63,20 @@ button {
 .button {
     margin: 5px;
 }
-.liftarea{
+
+.liftarea {
     height: 95px;
     width: 100%;
 }
 
-
 .lift {
     position: absolute;
+    bottom: 5px;
     width: 80px;
     height: 95px;
     background-color: red;
     border: 1px solid black;
-    transition: bottom 2s linear; /* Smooth linear transition for movement */
+    transition: bottom 2s ease-in-out; /* Smooth transition for movement */
     overflow: hidden; /* Necessary for door animations */
 }
 
@@ -105,4 +106,16 @@ button {
 
 .lift.doorsOpen::after {
     transform: translateX(100%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .lift {
+        width: 60px; /* Adjust width for mobile screens */
+        height: 80px; /* Adjust height for mobile screens */
+    }
+    .buttongroup button {
+        padding: 8px;
+        font-size: 12px;
+    }
 }
