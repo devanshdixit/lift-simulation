@@ -71,7 +71,7 @@ button {
 
 .lift {
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     width: 80px;
     height: 95px;
     background-color: red;

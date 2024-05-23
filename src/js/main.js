@@ -21,7 +21,7 @@ function initializeSimulation(floors, liftsCount) {
         const lift = document.createElement('div');
         lift.className = 'lift';
         lift.id = `lift${j}`;
-        lift.style.bottom = '5px';
+        lift.style.bottom = '0px';
         lift.style.left = `${j * 90 + 100}px`; // Adjust position as needed
         liftShaft.appendChild(lift);
     }
@@ -75,7 +75,7 @@ function initializeSimulation(floors, liftsCount) {
                     <div class="liftarea"></div>
                 </div>
                 <div class="basefloor">
-                    <div class="basefloorline"></div>
+                    <div class="basefloorline" style="margin-top:13px"></div>
                     <div class="floortext">Floor ${i + 1}</div>
                 </div>
             `;
